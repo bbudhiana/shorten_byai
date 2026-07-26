@@ -66,8 +66,10 @@ jobs:
 
             rm -rf vendor composer.lock
 
-            PHP_VERSION=$(php -r 'echo PHP_MAJOR_VERSION.".".PHP_MINOR_VERSION;')
-            find /etc/php/${PHP_VERSION} -name '*psr*' -delete 2>/dev/null || true
+            php -v
+            php -m | grep -i psr || true
+            php --ini || true
+            php -r 'echo ini_get("extension_dir")."\n";' | xargs -I{} find {} -name "*psr*" 2>/dev/null || true
 
             composer install --no-dev --optimize-autoloader
 
