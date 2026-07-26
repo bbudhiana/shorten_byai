@@ -57,8 +57,13 @@ jobs:
 
             cp -n .env.example .env 2>/dev/null || true
 
+            sed -i "s/^DB_PASSWORD=.*/DB_PASSWORD=${{ secrets.DB_PASSWORD }}/" .env
+            sed -i "s/^APP_DEBUG=.*/APP_DEBUG=false/" .env
+            sed -i "s/^APP_ENV=.*/APP_ENV=production/" .env
+
             composer install --no-dev --optimize-autoloader
 
+            php artisan config:clear
             php artisan key:generate --force --no-interaction
 
             php artisan migrate --force
