@@ -21,7 +21,7 @@ class UrlTest extends TestCase
     {
         $response = $this->get('/');
 
-        $response->assertSee('Shorten URLs');
+        $response->assertSee('Bana Shorten URL');
         $response->assertSee('Original URL');
         $response->assertSee('Short Link');
         $response->assertSee('Clicks');

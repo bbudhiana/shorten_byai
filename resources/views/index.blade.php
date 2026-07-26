@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>{{ config('app.name') }}</title>
+    <title>Bana Shorten URL</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
@@ -32,7 +32,7 @@
 
         <div class="mb-10 text-center">
             <h1 class="text-4xl font-bold tracking-tight bg-gradient-to-r from-primary-400 to-primary-600 bg-clip-text text-transparent">
-                Shorten URLs
+                Bana Shorten URL
             </h1>
             <p class="mt-3 text-gray-400 text-sm">Paste a long URL and get a clean short link instantly.</p>
         </div>
