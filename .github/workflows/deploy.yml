@@ -44,7 +44,9 @@ jobs:
           username: ${{ secrets.VPS_USERNAME }}
           key: ${{ secrets.VPS_SSH_KEY }}
           envs: DB_PASSWORD
-          script: |
+        env:
+          DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
+        script: |
             DEPLOY_DIR="/var/www/html/shortenurl.indoez.com"
             FIRST_DEPLOY=false
 
@@ -68,10 +70,7 @@ jobs:
 
             rm -rf vendor composer.lock
 
-            php -v
-            php -m | grep -i psr || true
-            php --ini || true
-            php -r 'echo ini_get("extension_dir")."\n";' | xargs -I{} find {} -name "*psr*" 2>/dev/null || true
+            sudo find /etc/php -name '*psr*' -delete 2>/dev/null || true
 
             composer install --no-dev --optimize-autoloader
 
