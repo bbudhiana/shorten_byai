@@ -46,10 +46,12 @@ jobs:
           envs: DB_PASSWORD
           script: |
             DEPLOY_DIR="/var/www/html/shortenurl.indoez.com"
+            FIRST_DEPLOY=false
 
             if [ ! -d "$DEPLOY_DIR/.git" ]; then
               rm -rf "$DEPLOY_DIR"
               git clone https://github.com/bbudhiana/shorten_byai.git "$DEPLOY_DIR"
+              FIRST_DEPLOY=true
             fi
 
             cd "$DEPLOY_DIR"
@@ -76,7 +78,11 @@ jobs:
             php artisan config:clear
             php artisan key:generate --force --no-interaction
 
-            php artisan migrate --force
+            if [ "$FIRST_DEPLOY" = true ]; then
+              php artisan migrate:fresh --force
+            else
+              php artisan migrate --force
+            fi
 
             php artisan config:cache
             php artisan route:cache
