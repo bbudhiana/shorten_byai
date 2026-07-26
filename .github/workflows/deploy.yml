@@ -64,6 +64,11 @@ jobs:
             sed -i "s/^APP_DEBUG=.*/APP_DEBUG=false/" .env
             sed -i "s/^APP_ENV=.*/APP_ENV=production/" .env
 
+            rm -rf vendor composer.lock
+
+            PHP_VERSION=$(php -r 'echo PHP_MAJOR_VERSION.".".PHP_MINOR_VERSION;')
+            find /etc/php/${PHP_VERSION} -name '*psr*' -delete 2>/dev/null || true
+
             composer install --no-dev --optimize-autoloader
 
             php artisan config:clear
